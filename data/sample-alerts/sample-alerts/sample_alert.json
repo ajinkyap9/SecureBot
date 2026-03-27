@@ -1,0 +1,8 @@
+{
+  "alert_id": "A-001",
+  "source": "wazuh",
+  "ip": "192.168.1.10",
+  "process": "powershell.exe",
+  "command": "powershell -enc aGVsbG8=",
+  "timestamp": "2026-03-23T10:00:00"
+}
