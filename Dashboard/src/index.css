@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Sora:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    font-family: Sora, ui-sans-serif, system-ui, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: #d8e3ff;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(58, 124, 250, 0.22), transparent 40%),
+      radial-gradient(circle at 90% 15%, rgba(14, 165, 233, 0.19), transparent 38%),
+      radial-gradient(circle at 45% 100%, rgba(245, 158, 11, 0.16), transparent 44%),
+      linear-gradient(165deg, #050b17 0%, #061329 42%, #081736 100%);
+    font-feature-settings: 'cv02' 1, 'cv03' 1, 'cv04' 1;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #060f1f;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: linear-gradient(180deg, #1e6cc0, #22d3ee);
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-sky-300/20 bg-slate-950/55 p-4 shadow-glow backdrop-blur-sm;
+  }
+
+  .panel-title {
+    @apply text-sm font-semibold uppercase tracking-[0.16em] text-sky-200/85;
+  }
+
+  .panel-subtitle {
+    @apply mt-1 text-xs text-slate-300/75;
+  }
+
+  .stat-value {
+    @apply mt-3 text-3xl font-bold tracking-tight text-slate-100;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-sky-200/25 bg-sky-400/10 px-2.5 py-1 text-xs font-medium text-sky-100;
+  }
+
+  .table-header {
+    @apply border-b border-slate-700/70 bg-slate-900/65 text-left text-xs uppercase tracking-[0.1em] text-slate-300;
+  }
+
+  .table-cell {
+    @apply border-b border-slate-800/80 px-3 py-3 text-sm text-slate-200;
+  }
+}

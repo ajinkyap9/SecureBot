@@ -1,4 +1,5 @@
 from app.services.scoring import calculate_risk_score
+from app.utils.constants import normalize_risk_score_percent, risk_score_to_label
 
 
 def run_intel(alert: dict) -> dict:
@@ -6,7 +7,7 @@ def run_intel(alert: dict) -> dict:
     process_name = str(alert.get("process", "")).lower()
     command = str(alert.get("command", "")).lower()
 
-    risk_score = calculate_risk_score(process_name, command)
+    risk_score_normalized = calculate_risk_score(process_name, command)
 
     attack_mapping = []
     reasons = []
@@ -30,20 +31,18 @@ def run_intel(alert: dict) -> dict:
 
     if "invoke-expression" in command or "iex" in command:
         reasons.append("Potential suspicious execution pattern detected")
-        risk_score = min(risk_score + 0.10, 1.0)
+        risk_score_normalized = min(risk_score_normalized + 0.10, 1.0)
 
-    if risk_score >= 0.8:
-        threat_level = "high"
-    elif risk_score >= 0.5:
-        threat_level = "medium"
+    risk_score = normalize_risk_score_percent(risk_score_normalized)
+    threat_level = risk_score_to_label(risk_score)
 
     return {
         "ioc": {
             "ip": ip_address,
             "process": process_name
         },
-        "risk_score": round(risk_score, 2),
-        "confidence": round(risk_score, 2),
+        "risk_score": risk_score,
+        "confidence": round(risk_score_normalized, 2),
         "attack_type": attack_type,
         "threat_level": threat_level,
         "attack_mapping": attack_mapping,

@@ -4,7 +4,15 @@ from app.models.action import Action
 from app.store.memory_store import action_store
 
 
-HIGH_IMPACT_PLAYBOOKS = {"block_ip_candidate", "isolate_host_candidate"}
+HIGH_IMPACT_PLAYBOOKS = {
+    "critical_risk_response",
+    "suspicious_login_account_compromise",
+    "malware_endpoint_infection",
+    "suspicious_ip_threat_intel_match",
+    "lateral_movement_containment",
+    "privilege_escalation_containment",
+    "data_exfiltration_containment",
+}
 
 
 def execute_playbooks(

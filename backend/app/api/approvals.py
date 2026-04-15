@@ -57,3 +57,21 @@ def review_action(request: ApprovalRequest, db: Session = Depends(get_db)):
         "decision": approval_store[request.action_id],
         "updated_action": current_action,
     }
+
+
+@router.get("/")
+def list_approvals(db: Session = Depends(get_db)):
+    approvals = db.query(Approval).order_by(Approval.id.desc()).all()
+
+    return {
+        "total_approvals": len(approvals),
+        "approvals": [
+            {
+                "action_id": approval.action_id,
+                "approved": approval.approved,
+                "analyst": approval.analyst,
+                "comment": approval.comment,
+            }
+            for approval in approvals
+        ],
+    }
